@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ViewWallet : MonoBehaviour
+public class WalletView : MonoBehaviour
 {
     [SerializeField] private HorizontalLayoutGroup _currencyLayoutGroup;
 

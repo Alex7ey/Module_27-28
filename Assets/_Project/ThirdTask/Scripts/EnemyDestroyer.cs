@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyDestroyer : MonoBehaviour
 {
-    public Dictionary<Enemy, Func<Enemy, EnemyDestroyer, bool>> EnemyDestructionRules { get; private set; } = new();
+    public Dictionary<Enemy, Func<bool>> EnemyDestructionRules { get; private set; } = new();
 
     private List<Enemy> _enemiesToDestroy = new();
 
-    public void RegisterEnemy(Enemy enemy, Func<Enemy, EnemyDestroyer, bool> action)
+    public void RegisterEnemy(Enemy enemy, Func<bool> action)
     {
         EnemyDestructionRules.Add(enemy, action);
     }
@@ -29,7 +29,7 @@ public class EnemyDestroyer : MonoBehaviour
     {
         foreach (var enemy in EnemyDestructionRules)
         {
-            if (enemy.Value.Invoke(enemy.Key, this))
+            if (enemy.Value.Invoke())
             {
                 _enemiesToDestroy.Add(enemy.Key);
             }

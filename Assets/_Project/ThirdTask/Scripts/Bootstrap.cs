@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace ThirdTask
@@ -13,18 +12,24 @@ namespace ThirdTask
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
-                CreateEnemy(_despawnConditions.IsLifetimeExceeded);
+            {
+                Enemy enemy = CreateEnemy();
+                _enemyDestroyer.RegisterEnemy(enemy, _despawnConditions.IsLifetimeExceeded(enemy));
+            }      
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
-                CreateEnemy(_despawnConditions.IsEnemyLimitExceeded);
+            {
+                Enemy enemy = CreateEnemy();
+                _enemyDestroyer.RegisterEnemy(enemy, _despawnConditions.IsEnemyLimitExceeded(_enemyDestroyer));
+            }
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
-                CreateEnemy(_despawnConditions.IsDead);
+            {
+                Enemy enemy = CreateEnemy();
+                _enemyDestroyer.RegisterEnemy(enemy, _despawnConditions.IsDead(enemy));
+            }
         }
 
-        private void CreateEnemy(Func<Enemy, EnemyDestroyer, bool> action)
-        {
-            _enemyDestroyer.RegisterEnemy(Instantiate(_prefab), action);
-        }
+        private Enemy CreateEnemy() => Instantiate(_prefab);       
     }
 }

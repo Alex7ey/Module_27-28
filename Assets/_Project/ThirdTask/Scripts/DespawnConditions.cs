@@ -1,3 +1,5 @@
+using System;
+
 public class DespawnConditions
 {
     private float _lifeTime;
@@ -9,9 +11,9 @@ public class DespawnConditions
         _maxEnemiesCount = maxEnemiesCount;
     }
 
-    public bool IsLifetimeExceeded(Enemy enemy, EnemyDestroyer enemyDestroyer) => enemy.TimeSinceSpawn > _lifeTime;
+    public Func<bool> IsLifetimeExceeded(Enemy enemy) => () => enemy.TimeSinceSpawn > _lifeTime;
 
-    public bool IsEnemyLimitExceeded(Enemy enemy, EnemyDestroyer enemyDestroyer) => enemyDestroyer.EnemyDestructionRules.Count > _maxEnemiesCount;
+    public Func<bool> IsEnemyLimitExceeded(EnemyDestroyer enemyDestroyer) => () => enemyDestroyer.EnemyDestructionRules.Count > _maxEnemiesCount;
 
-    public bool IsDead(Enemy enemy, EnemyDestroyer enemyDestroyer) => enemy.IsDead;
+    public Func<bool> IsDead(Enemy enemy) => () => enemy.IsDead;
 }

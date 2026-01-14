@@ -4,7 +4,7 @@ using UnityEngine;
 public class Bootstrap : MonoBehaviour
 {
     [SerializeField] private List<CurrencyButtonView> _currencyButtonPrefabs;
-    [SerializeField] private ViewWallet _viewWallet;
+    [SerializeField] private WalletView _viewWallet;
    
     private Wallet _wallet = new();
 
